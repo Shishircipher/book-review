@@ -3,6 +3,16 @@ import { pool } from '../config/db.js'
 
 export const createBook = async (req, res) => {
   const { title, author, genre } = req.body;
+   // Check if book already exists (by title and author)
+   const existing = await pool.query(
+    'SELECT * FROM books WHERE LOWER(title) = LOWER($1) AND LOWER(author) = LOWER($2)',
+    [title, author]
+  );
+
+  if (existing.rows.length > 0) {
+    return res.status(409).json({ error: 'Book already exists' });
+  }
+  // if not exists then insert new book
   const result = await pool.query(
     'INSERT INTO books (title, author, genre) VALUES ($1, $2, $3) RETURNING *',
     [title, author, genre]

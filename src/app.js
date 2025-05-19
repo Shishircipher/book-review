@@ -5,7 +5,8 @@ import dotenv from 'dotenv';
 
 import authRoutes from './routes/authRoutes.js';
 import bookRoutes from './routes/bookRoutes.js';
-import reviewRoutes from './routes/searchRoutes.js';
+import searchRoutes from './routes/searchRoutes.js';
+import reviewRoutes from './routes/reviewRoutes.js'
 
 const app = express();
 // Middleware
@@ -14,9 +15,11 @@ app.use(express.json());
 // app.use(morgan('dev'));
 
 // Routes
-app.use('/api/auth', authRoutes);        // /signup, /login
-app.use('/api/books', bookRoutes);       // CRUD + reviews (protected)
-app.use('/api/reviews', reviewRoutes);   // Update/Delete reviews
+app.use('/auth', authRoutes);        // /signup, /login
+// CRUD + reviews (protected)
+app.use('/books', bookRoutes);       
+app.use('/reviews', reviewRoutes);
+app.use('/search', searchRoutes);  
 
 // Root
 app.get('/', (req, res) => {
