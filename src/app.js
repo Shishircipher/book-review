@@ -23,7 +23,7 @@ app.use('/search', searchRoutes);
 
 // Root
 app.get('/', (req, res) => {
-  res.send(' Book Review API is running...');
+  res.send('Book Review API is running...');
 });
 
 // 404 handler
